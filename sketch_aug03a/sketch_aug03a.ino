@@ -31,11 +31,11 @@ const char* serverName = "http://43.205.129.158/api/calculate";
 bool calculated = false;
 
 // ALL CONSTANT VALUES FOR CALCULATION
-int voltage = 60;
-int current = 0.5;
-int atmTemp = 30;
-int diameter = 0.0127;
-int lengthForCalc = 0.15;
+float voltage = 60;
+float current = 0.5;
+float atmTemp = 30;
+float diameter = 0.0127;
+float lengthForCalc = 0.15;
 
 void setup() {
   Serial.begin(115200);
