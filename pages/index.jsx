@@ -19,7 +19,7 @@ export async function getServerSideProps() {
 
 export default function Home({ data }) {
   console.log(data);
-  let tempArr = data[0].temperatures;
+  let tempArr = data[0]?.temperatures || [];
 
   return (
     <div className="mt-8 mx-24 h-full">
