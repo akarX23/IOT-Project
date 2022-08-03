@@ -93,7 +93,7 @@ export default function Home({ data }) {
           ))}
         </tbody>
       </table>
-      <div className="text-center flex flex-col my-8">
+      <div className="text-center flex flex-col my-8 w-3/4 mx-auto">
         <Image src={formula1} />
         <Image src={formula2} />
       </div>

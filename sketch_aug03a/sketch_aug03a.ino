@@ -25,7 +25,7 @@ const char* ssid = "midlf";
 const char* password = "maachuda";
 
 //Domain name with URL path or IP address with path
-const char* serverName = "http://43.205.129.158:4000/";
+const char* serverName = "http://43.205.129.158/";
 
 // Variable to make sure value is calculated only once
 bool calculated = false;

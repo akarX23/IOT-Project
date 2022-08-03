@@ -19,21 +19,36 @@ export const calcHeatCoefficient = async (pinFinData) => {
   // Calculate volume coeffecient
   let beta = 1 / (filmTemp + 273.15);
 
-  // Calculate constant heat flux
-  let qw = (voltage * current) / (Math.PI * diameter * length);
+  // delta T
+  let deltaT = avgTemp - atmTemp + 273.15;
 
   // Grashoff number
-  let gr = (9.81 * beta * Math.pow(length, 4) * qw) / (kv * kv * k);
+  let gr = (9.81 * beta * deltaT * Math.pow(df, 3)) / (kv * kv);
 
   // Nusselt number
   let nu;
   let grpr = gr * pr;
-  if (Math.pow(10, 5) < grpr && grpr < Math.pow(10, 11))
-    nu = 0.6 * Math.pow(grpr, 0.2);
-  else nu = 0.17 * Math.pow(grpr, 0.2);
+  let c, m;
+  if (grpr < Math.pow(10, -2)) {
+    c = 0.675;
+    m = 0.058;
+  } else if (grpr < Math.pow(10, 2)) {
+    c = 1.02;
+    m = 0.148;
+  } else if (grpr < Math.pow(10, 4)) {
+    c = 0.85;
+    m = 0.188;
+  } else if (grpr < Math.pow(10, 7)) {
+    c = 0.48;
+    m = 0.25;
+  } else {
+    c = 0.125;
+    m = 0.35;
+  }
+  nu = c * Math.pow(grpr, m);
 
   // Calculate heat coefficient
-  let h = (nu * k) / length;
+  let h = (nu * k) / diameter;
 
   let pinFinResult = insertOne({
     voltage,
