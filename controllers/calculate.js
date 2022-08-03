@@ -23,7 +23,7 @@ export const calcHeatCoefficient = async (pinFinData) => {
   let deltaT = avgTemp - atmTemp + 273.15;
 
   // Grashoff number
-  let gr = (9.81 * beta * deltaT * Math.pow(df, 3)) / (kv * kv);
+  let gr = (9.81 * beta * deltaT * Math.pow(diameter, 3)) / (kv * kv);
 
   // Nusselt number
   let nu;
@@ -50,7 +50,7 @@ export const calcHeatCoefficient = async (pinFinData) => {
   // Calculate heat coefficient
   let h = (nu * k) / diameter;
 
-  let pinFinResult = insertOne({
+  let pinFinResult = await insertOne({
     voltage,
     current,
     heat,
