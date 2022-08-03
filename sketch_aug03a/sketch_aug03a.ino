@@ -25,17 +25,17 @@ const char* ssid = "midlf";
 const char* password = "maachuda";
 
 //Domain name with URL path or IP address with path
-const char* serverName = "http://43.205.129.158/";
+const char* serverName = "http://43.205.129.158/api";
 
 // Variable to make sure value is calculated only once
 bool calculated = false;
 
 // ALL CONSTANT VALUES FOR CALCULATION
-int voltage = 25;
-int current = 25;
-int atmTemp = 25;
-int diameter = 25;
-int lengthForCalc = 25;
+int voltage = 60;
+int current = 0.5;
+int atmTemp = 30;
+int diameter = 0.0127;
+int lengthForCalc = 0.15;
 
 void setup() {
   Serial.begin(115200);
@@ -54,9 +54,6 @@ void setup() {
 }
 
 void loop() {
-    Serial.print("Starting calculation");
-    delay(1000);
-    
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED && !calculated){
 
@@ -76,7 +73,7 @@ void loop() {
       
       // Data to send with HTTP POST
       String httpRequestData = String("{\"voltage\":") + voltage + String(",\"current\":") + current + String(",\"temperatures\":") + String("[") + t1 + String(",") + t2 + String(",") + t3 + String("]") + String(",\"atmTemp\":") + atmTemp + String(",\"diameter\":") + diameter + String(",\"length\":") + lengthForCalc + String("}");           
-      Serial.print(httpRequestData);
+
       // Send HTTP POST request
       int httpResponseCode = http.POST(httpRequestData);
      
