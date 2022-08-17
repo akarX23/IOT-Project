@@ -21,11 +21,11 @@ MAX6675 thermocouple2(thermoCLK2, thermoCS2, thermoDO2);
 MAX6675 thermocouple3(thermoCLK3, thermoCS3, thermoDO3);
 
 // WIFI CREDENTIALS
-const char* ssid = "midlf";
-const char* password = "maachuda";
+const char* ssid = "";
+const char* password = "";
 
 //Domain name with URL path or IP address with path
-const char* serverName = "http://43.205.129.158/api/calculate";
+const char* serverName = "http://43.205.129.158/api/initialize";
 
 // Variable to make sure value is calculated only once
 bool calculated = false;
@@ -72,7 +72,7 @@ void loop() {
       http.addHeader("Content-Type", "application/json");
       
       // Data to send with HTTP POST
-      String httpRequestData = String("{\"voltage\":") + voltage + String(",\"current\":") + current + String(",\"temperatures\":") + String("[") + t1 + String(",") + t2 + String(",") + t3 + String("]") + String(",\"atmTemp\":") + atmTemp + String(",\"diameter\":") + diameter + String(",\"length\":") + lengthForCalc + String("}");           
+      String httpRequestData = String("{\"temperatures\":") + String("[") + t1 + String(",") + t2 + String(",") + t3 + String("]}")
 
       // Send HTTP POST request
       int httpResponseCode = http.POST(httpRequestData);

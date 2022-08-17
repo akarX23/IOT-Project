@@ -1,9 +1,12 @@
 import { getPropertiesFromTemp } from "../helpers/utils.js";
-import { insertOne } from "../Models/PinFin.js";
+import { findById, insertOne, upsertOne } from "../Models/PinFin.js";
 
-export const calcHeatCoefficient = async (pinFinData) => {
-  let { voltage, current, temperatures, atmTemp, diameter, length } =
-    pinFinData;
+export const calcHeatCoefficient = async (pinFinData, id) => {
+  let { voltage, current, atmTemp, diameter, length } = pinFinData;
+
+  let pinFin = await findById(id);
+
+  let temperatures = pinFin.temperatures;
 
   // Calculate Q
   let heat = voltage * current;
@@ -50,15 +53,28 @@ export const calcHeatCoefficient = async (pinFinData) => {
   // Calculate heat coefficient
   let h = (nu * k) / diameter;
 
+  let pinFinResult = await upsertOne(
+    { _id: id },
+    {
+      voltage,
+      current,
+      heat,
+      temperatures,
+      atmTemp,
+      heatCoefficient: h,
+      diameter,
+      length,
+    }
+  );
+
+  return pinFinResult;
+};
+
+export const insertTemps = async (data) => {
+  let { temperatures } = data;
+
   let pinFinResult = await insertOne({
-    voltage,
-    current,
-    heat,
     temperatures,
-    atmTemp,
-    heatCoefficient: h,
-    diameter,
-    length,
   });
 
   return pinFinResult;

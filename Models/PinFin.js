@@ -49,4 +49,19 @@ const find = async () => {
   return pinFin;
 };
 
-export { PinFin, insertOne, find };
+const upsertOne = async (query, data) => {
+  let pinFin = await PinFin.findOneAndUpdate(query, data, {
+    new: true,
+    upsert: true,
+  });
+
+  return pinFin;
+};
+
+const findById = async (id) => {
+  let pinFin = await PinFin.findById(id).lean();
+
+  return pinFin;
+};
+
+export { PinFin, insertOne, find, upsertOne, findById };
