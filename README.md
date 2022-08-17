@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IOT Project
 
-## Getting Started
+### Aim - To read the data from the temperature sensor, send it to the server and store the calculated result in the database
 
-First, run the development server:
+## How to run the project
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+#### The project can be run using `Docker` or `NPM`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Steps to initialize project:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Clone the project using `git clone https://github.com/akarX23/IOT-Project.git project_dir`
+- Creat a `.env.local` file in the root folder
+- Copy the contents of `.env.example` file provided and put the path to the mongodb instance
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Running the project with `Docker`:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Use the command `docker build -t image_name .` at the root of the folder to build the image
+- Use the command `docker run --name container_name -d -p 80:3000 --restart always image_name` to run the container
+- Go to `http://localhost:3000` to see the index page
 
-## Learn More
+### Running project using `NPM`:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Run `npm install -f --save` in the root folder
+- Run `npm run dev` to run the project in development mode
+- Run `npm run build` and then `npm start` to run the project in production mode
