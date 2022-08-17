@@ -102,7 +102,8 @@ export default function Home({ data }) {
       </h1>
       <h3 className="text-lg text-white mb-8">
         Please select the row you want to edit and fill the fields with the new
-        values and click the "Calculate" button to update the calculations.
+        values and click the &quot;Calculate&quot; button to update the
+        calculations.
       </h3>
       <form className="flex flex-wrap mt-4 mb-8 items-end" onSubmit={onSubmit}>
         {inputFields.map((inputData, i) => (
@@ -225,8 +226,8 @@ export default function Home({ data }) {
         </tbody>
       </table>
       <div className="text-center flex flex-col my-8 w-3/4 mx-auto">
-        <Image src={formula1} />
-        <Image src={formula2} />
+        <Image src={formula1} alt={"formula"} />
+        <Image src={formula2} alt={"formula"} />
       </div>
     </div>
   );
