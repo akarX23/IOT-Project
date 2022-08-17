@@ -118,7 +118,10 @@ export default function Home({ data }) {
               disabled={selectedId === null}
               value={values[inputData.name]}
               onChange={(e) => {
-                setValues({ ...values, [inputData.name]: e.target.value });
+                setValues({
+                  ...values,
+                  [inputData.name]: parseFloat(e.target.value),
+                });
               }}
             />
           </div>
