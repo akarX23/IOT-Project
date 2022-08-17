@@ -7,6 +7,7 @@ import { useState } from "react";
 import formula1 from "assets/formula1.jpeg";
 import formula2 from "assets/formula2.jpeg";
 import { sendDataForCalculation } from "helpers/APIs/calculate";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps() {
   await dbConnect();
@@ -23,11 +24,11 @@ export async function getServerSideProps() {
 let inputFields = [
   {
     name: "voltage",
-    title: "Voltage",
+    title: "Voltage (V)",
   },
   {
     name: "current",
-    title: "Current",
+    title: "Current (A)",
   },
   {
     name: "atmTemp",
@@ -35,16 +36,17 @@ let inputFields = [
   },
   {
     name: "diameter",
-    title: "Diameter",
+    title: "Diameter (m)",
   },
   {
     name: "length",
-    title: "Length",
+    title: "Length (m)",
   },
 ];
 
 export default function Home({ data }) {
   let tempArr = data[0]?.temperatures || [];
+  console.log(data);
 
   const [selectedId, setSelectedId] = useState(null);
   const [values, setValues] = useState({
@@ -55,6 +57,11 @@ export default function Home({ data }) {
     length: "",
   });
   const [currentData, setCurrentData] = useState(data);
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -107,30 +114,39 @@ export default function Home({ data }) {
       </h3>
       <form className="flex flex-wrap mt-4 mb-8 items-end" onSubmit={onSubmit}>
         {inputFields.map((inputData, i) => (
-          <div key={i} className="mr-10">
+          <div key={i} className="mr-10  my-3">
             <p className="mb-2 text-lg text-white font-bold">
               {inputData.title}
             </p>
             <input
               name={inputData.name}
-              type="number"
               className="p-2 border-none outline-none"
               disabled={selectedId === null}
               value={values[inputData.name]}
               onChange={(e) => {
                 setValues({
                   ...values,
-                  [inputData.name]: parseFloat(e.target.value),
+                  [inputData.name]: e.target.value,
                 });
               }}
+              noValidate
             />
           </div>
         ))}
 
-        <button className="p-2 bg-orange-400 text-black font-bold">
+        <button
+          className="p-2 bg-orange-400 text-black font-bold my-3"
+          type="submit"
+        >
           Calculate
         </button>
       </form>
+      <button
+        className="p-2 bg-blue-400 mb-8 text-black font-bold"
+        onClick={refreshData}
+      >
+        Reload Data
+      </button>
       <table className="w-full table-auto border-collapse border ">
         <thead>
           <tr className="border-b border-white">
