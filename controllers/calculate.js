@@ -14,7 +14,7 @@ export const calcHeatCoefficient = async (pinFinData, id) => {
   // Calculate Tf
   const avgTemp =
     temperatures.reduce((a, b) => a + b, 0) / temperatures.length || 0;
-  let filmTemp = (avgTemp + atmTemp) / 2;
+  let filmTemp = (avgTemp + parseInt(atmTemp)) / 2;
 
   // Get properties of air from Tf
   let { kv, k, pr } = await getPropertiesFromTemp(filmTemp);
